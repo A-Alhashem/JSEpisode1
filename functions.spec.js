@@ -85,7 +85,7 @@ describe("ageFromCivilID(civilID)", () => {
   });
 
   test("rounds down to the nearest year", () => {
-    let currentMonth = new Date().getMonth() + 2;
+    let currentMonth = (new Date().getMonth() + 2) % 12;
     currentMonth = currentMonth < 10 ? `0${currentMonth}` : currentMonth;
     const civilIDs = [
       `287${currentMonth}0512345`,

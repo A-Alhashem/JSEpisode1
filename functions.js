@@ -5,7 +5,11 @@
  * - logs "Hello <name>" if there is a name
  */
 function greet(name) {
-  // Your code here
+  if (name) {
+    console.log(`Hello ${name}`);
+  } else {
+    console.log("Hello");
+  }
 }
 
 /**
@@ -14,7 +18,12 @@ function greet(name) {
  * - returns true if it's odd, false otherwise
  */
 function isOdd(n) {
-  // Your code here
+  // return n % 2 !== 0
+  if (n % 2 !== 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -29,7 +38,8 @@ function isOdd(n) {
  * Hint: you can solve this without writing any loops!
  */
 function oddsSmallerThan(n) {
-  // Your code here
+  if (isOdd(n)) n--;
+  return n / 2;
 }
 
 /**
@@ -43,14 +53,18 @@ function oddsSmallerThan(n) {
  * squareOrDouble(9) -> 81
  */
 function squareOrDouble(n) {
-  // Your code here
+  if (isOdd(n)) {
+    return n * n;
+  } else {
+    return n * 2;
+  }
 }
 
 /**
  * ageFromCivilID(civilID):
  * - receives a civilID as a STRING of the form <CYYMMDDXXXXX>
  *   where:
- *     - C is the century (1 = 18xx, 2 = 19xx, 3 = 20xx)
+ *     - C is the century (1 = 18xx, 2 = 19xx, 3 = 20xx) ((( finding the pattern 17+1 = 18... 17+2 = 19 ... 17+3 = 20.... )))
  *     - YY is the year (00 - 99)
  *     - MM is the month (01 - 12)
  *     - DD is the date
@@ -65,7 +79,20 @@ function squareOrDouble(n) {
  *    ageFromCivilID(297111012345) -> 20
  */
 function ageFromCivilID(civilID) {
-  // Your code here
+  const year = 17 + +civilID[0] civilID[1] + civilID[2];
+  const month = civilID[3] + civilID[4];
+  const day = civilID[5] + civilID[6];
+
+  const today = new Date()
+  const dob = new Date(year, month - 1, day)    // month -1 is because new Date() takes in index number, while we need the actual civil id number, i.e. civilid is 1, while index is 0, therefore 1-1 = 0 to convert it to index
+
+  let age = today.getFullYear() - dob.getFullYear();
+
+  if(dob.getMonth() > today.getMonth()) {
+    age--;                  // -- is exactly the same as age = age - 1
+  }
+
+  return age;
 }
 
 /**
@@ -80,7 +107,7 @@ function ageFromCivilID(civilID) {
  *    - Is NOT a member of the royal family
  */
 function canVoteInKuwait(civilID, isKuwaiti, isRoyal) {
-  // Your code here
+  return ageFromCivilID(civilID) >= 21 && isKuwait && !isRoyal
 }
 
 module.exports = {
